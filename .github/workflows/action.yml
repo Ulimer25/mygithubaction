@@ -1,30 +1,28 @@
-name: Run Tests on Pull Request
+name: My First Action
 
 on:
-  pull_request:
+  push:
     branches:
-      - main  # This specifies that the action will run for PRs targeting the 'main' branch
-    # Optionally, you can add more filters, such as specific types of PR activities
-    # e.g., when a PR is opened, closed, or synchronized (updated with new commits)
+      - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest  # Runner type (could also be macOS, Windows, or Ubuntu)
+  build:
+    runs-on: ubuntu-latest  # Runner type (could be macOS, Windows, or Ubuntu)
 
     steps:
     - name: Check out repository
-      uses: actions/checkout@v3  # Checks out the code from the repository
+      uses: actions/checkout@v3  # This action checks out your code
 
     - name: Set up Node.js
       uses: actions/setup-node@v3  # Sets up Node.js if your project uses it
       with:
-        node-version: '16'  # Specify the Node.js version you're using
+        node-version: '16'
 
     - name: Install dependencies
-      run: npm install  # Installs project dependencies
+      run: npm install  # Install your project dependencies
 
     - name: Run tests
-      run: npm test  # Runs the tests (ensure 'npm test' is properly set up to run your test suite)
+      run: npm test  # Run your tests
 
-    - name: Commit any changes (if applicable)
-      run: git commit -am "Automated changes" || echo "No changes to commit"  # Commits any automated changes (optional)
+    - name: Commit any changes
+      run: git commit -am "Automated changes" || echo "No changes to commit"
